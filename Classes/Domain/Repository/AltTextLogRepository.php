@@ -79,7 +79,8 @@ class AltTextLogRepository extends Repository
         $offset = $page > 1 ? ($page - 1) * $limit : 0;
 
         $this->altTextLogsQueryBuilder
-            ->select('uid')
+            ->addSelectLiteral('MAX(uid) AS uid')
+            ->addSelectLiteral('MAX(crdate) AS crdate')
             ->from('tx_mkcontentai_domain_model_alt_text_logs')
             ->where(
                 $this->altTextLogsQueryBuilder->expr()->eq('deleted', $this->altTextLogsQueryBuilder->createNamedParameter(0, Connection::PARAM_STR))
