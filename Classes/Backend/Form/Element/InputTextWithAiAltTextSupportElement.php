@@ -38,7 +38,7 @@ class InputTextWithAiAltTextSupportElement extends InputTextElement
             return $resultArray;
         }
 
-        if (!GeneralUtility::makeInstance(SettingsUtility::class)->isApiKeySetForAltTextAi()) {
+        if (!GeneralUtility::makeInstance(SettingsUtility::class)->isApiKeySetForAltText()) {
             return $resultArray;
         }
 

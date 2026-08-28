@@ -18,6 +18,8 @@ namespace DMK\MkContentAi\Utility;
 use DMK\MkContentAi\Controller\AiImageController;
 use DMK\MkContentAi\Controller\SettingsController;
 use DMK\MkContentAi\Http\Client\AltTextClient;
+use DMK\MkContentAi\Http\Client\OpenAiAltTextClient;
+use DMK\MkContentAi\Service\AiAltTextService;
 use DMK\MkContentAi\Http\Client\SummAiClient;
 use TYPO3\CMS\Core\Registry;
 
@@ -40,6 +42,20 @@ class SettingsUtility
     public function isApiKeySetForAltTextAi(): bool
     {
         return $this->isApiKeySetForClient(AltTextClient::class);
+    }
+
+    public function isApiKeySetForOpenAiAltText(): bool
+    {
+        return $this->isApiKeySetForClient(OpenAiAltTextClient::class);
+    }
+
+    public function isApiKeySetForAltText(): bool
+    {
+        $provider = AiAltTextService::getAltTextProvider();
+        if ($provider === AiAltTextService::PROVIDER_OPENAI) {
+            return $this->isApiKeySetForOpenAiAltText();
+        }
+        return $this->isApiKeySetForAltTextAi();
     }
 
     public function isApiKeySetForSummAi(): bool

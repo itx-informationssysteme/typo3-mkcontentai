@@ -70,8 +70,16 @@ services:
     DMK\MkContentAi\Http\Client\AltTextClient:
         public: true
 
+    DMK\MkContentAi\Http\Client\OpenAiAltTextClient:
+        public: true
+
     DMK\MkContentAi\Service\AiAltTextService:
         public: true
+        arguments:
+            $altTextClient: '@DMK\MkContentAi\Http\Client\AltTextClient'
+            $openAiAltTextClient: '@DMK\MkContentAi\Http\Client\OpenAiAltTextClient'
+            $fileService: '@DMK\MkContentAi\Service\FileService'
+            $eventDispatcher: '@TYPO3\CMS\Core\EventDispatcher\EventDispatcher'
 
     DMK\MkContentAi\Backend\Hooks\CustomDataHandler:
         arguments:
