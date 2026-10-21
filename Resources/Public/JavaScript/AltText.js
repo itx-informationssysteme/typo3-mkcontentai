@@ -25,9 +25,15 @@ $(document).ready(function () {
                     alternativeCheckbox.click();
                 }
 
-                alternativeDivContainer.find('input[type=text]').val(response);
-                const hiddenAlternativeInput = alternativeDivContainer.find('input[type=hidden]')[1];
-                $(hiddenAlternativeInput).val(response);
+                const visibleInput = alternativeDivContainer
+                    .find('input[data-formengine-input-name$="[alternative]"]')
+                    .get(0);
+
+                if (visibleInput) {
+                    visibleInput.value = response;
+                    visibleInput.dispatchEvent(new Event('input', { bubbles: true }));
+                    visibleInput.dispatchEvent(new Event('change', { bubbles: true }));
+                }
             },
             error: function (response) {
 
